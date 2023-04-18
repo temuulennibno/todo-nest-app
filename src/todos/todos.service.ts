@@ -4,17 +4,16 @@ import { UpdateTodoDto } from './dto/update-todo.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Todo } from './entities/todo.entity';
 import { Model } from 'mongoose';
+import { Secured } from 'src/auth/secured.decorator';
 
 @Injectable()
 export class TodosService {
-  constructor(
-    @InjectModel(Todo.name) private readonly todoModel: Model<Todo>,
-  ) {}
+  constructor(@InjectModel(Todo.name) private readonly todoModel: Model<Todo>) {}
 
   async create(createTodoDto: CreateTodoDto): Promise<Todo> {
     console.log('createTodoDto:', createTodoDto);
-    const todo = new this.todoModel(createTodoDto);
-    return todo.save();
+    const result = new this.todoModel(createTodoDto);
+    return result.save();
   }
 
   async findAll(): Promise<Todo[]> {
@@ -22,15 +21,18 @@ export class TodosService {
     return result;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} todo`;
+  async findOne(_id: string) {
+    return await this.todoModel.findById(_id);
   }
 
-  update(id: number, updateTodoDto: UpdateTodoDto) {
-    return `This action updates a #${id} todo`;
+  async update(_id: string, updateTodoDto: UpdateTodoDto) {
+    const result = await this.todoModel.updateOne({ _id }, updateTodoDto);
+    return result;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} todo`;
+  @Secured()
+  async remove(_id: string) {
+    await this.todoModel.deleteOne({ _id });
+    return _id;
   }
 }

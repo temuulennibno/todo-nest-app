@@ -12,10 +12,7 @@ export class Todo {
   @Prop({ default: false })
   checked: boolean;
 
-  @Prop()
   createdAt: Date;
-
-  @Prop()
   updatedAt: Date;
 }
 
