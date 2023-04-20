@@ -5,6 +5,7 @@ import { UpdateTodoDto } from './dto/update-todo.dto';
 import { Secured } from 'src/auth/secured.decorator';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { User } from 'src/users/entities/user.entity';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('todos')
 export class TodosController {

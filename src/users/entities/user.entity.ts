@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { nanoid } from 'nanoid';
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({ default: () => nanoid() })
   _id: string;

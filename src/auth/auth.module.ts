@@ -4,9 +4,12 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import env from 'src/env';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Otp, OtpSchema } from './entities/otp.entity';
 
 @Module({
   imports: [
+    MongooseModule.forFeature([{ name: Otp.name, schema: OtpSchema }]),
     UsersModule,
     JwtModule.register({
       global: true,
