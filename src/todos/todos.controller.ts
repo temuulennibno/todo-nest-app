@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, SetMetadata, Query } from '@nestjs/common';
 import { TodosService } from './todos.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
@@ -17,7 +17,7 @@ export class TodosController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Query() size: number) {
     return this.todosService.findAll();
   }
 
@@ -31,7 +31,7 @@ export class TodosController {
     return this.todosService.update(_id, updateTodoDto);
   }
 
-  @Secured()
+  @Secured('admin')
   @Delete(':_id')
   remove(@CurrentUser() user: User, @Param('_id') _id: string) {
     console.log('user is:', user);
