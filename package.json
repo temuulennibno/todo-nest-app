@@ -38,11 +38,6 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "cd .husky && ./pre-commit"
-    }
-  },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
