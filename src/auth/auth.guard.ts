@@ -11,7 +11,6 @@ export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
-    console.log('token is:', token);
     if (!token) {
       throw new UnauthorizedException();
     }
@@ -24,7 +23,6 @@ export class AuthGuard implements CanActivate {
     } catch (e) {
       throw new UnauthorizedException();
     }
-    console.log('payload from token found!', payload);
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
 
     const user = payload.sub;

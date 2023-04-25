@@ -30,7 +30,7 @@ export class TodosService {
     return result;
   }
 
-  @Secured()
+  @Secured('admin')
   async remove(_id: string) {
     await this.todoModel.deleteOne({ _id });
     return _id;
